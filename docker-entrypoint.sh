@@ -5,11 +5,12 @@ CMD="$@"
 
 curl -s https://land.copernicus.eu/ | get-urls > out.txt
 
+var=$($CMD)
+echo "$var"
+
 if ($CMD | grep -q "Passed")
 then
-    echo "Passed the test"
     exit 0
 else
-    echo "Failed the test"
     exit 1
 fi
