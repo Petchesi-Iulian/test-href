@@ -1,13 +1,14 @@
 FROM alpine:3.3
 MAINTAINER "EEA: IDM2 A-Team" <eea-edw-a-team-alerts@googlegroups.com>
 
-ENV GETURLS-VERSION=1.1.0
+ENV GETURLS_VERSION=1.1.0
 
-RUN apk add --no-cache --virtual .run-deps nodejs git \
- && npm install -g get-urls-cli@$GETURLS-VERSION \
+RUN apk add --no-cache --virtual .run-deps nodejs git python python-dev \
+ && npm install -g get-urls-cli@$GETURLS_VERSION \
  && mkdir -p /code
 
+COPY testRequests.py /testRequests.py
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["curl -s https://land.copernicus.eu/ | get-urls > out.txt"]
+CMD ["/usr/bin/python", "testRequests.py"]

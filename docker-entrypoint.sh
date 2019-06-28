@@ -1,13 +1,16 @@
 #!/bin/sh
 set -e
 
-CMD="$1"
+CMD="$@"
 
-exec curl -s https://land.copernicus.eu/ | get-urls > out.txt
+curl -s https://land.copernicus.eu/ | get-urls > out.txt
 
-exec echo $CSS_RES
-exec echo $JS_RES
+echo "PRINT CSS"
+echo $CSS_ORG
+echo "PRINT JS"
+echo $JS_ORG
 
-if [ ! -z "$COOKIES" ]; then
-  python3 /cookie_config.py
-fi
+echo "COMMAND"
+echo $CMD
+
+exec "$@"
