@@ -3,7 +3,7 @@ set -e
 
 CMD="$@"
 
-curl -s https://land.copernicus.eu/ | get-urls > out.txt
+curl -s "$REG_URL" | get-urls > out.txt
 
 var=$($CMD)
 echo "$var"
